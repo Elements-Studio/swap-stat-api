@@ -21,13 +21,16 @@ spec:
             - containerPort: 8800
           env:
             - name: DS_URL
-              value: "jdbc:postgresql://database-1.c0bz9kehdvnb.ap-northeast-1.rds.amazonaws.com/starcoin?currentSchema=barnard"
+              value: "jdbc:postgresql://postgres-service.default.svc.cluster.local/starcoin?currentSchema=barnard"
             - name: DB_USER_NAME
-              value: "starcoin"
+              valueFrom:
+                secretKeyRef:
+                  name: postgresql
+                  key: username
             - name: DB_PWD
               valueFrom:
                 secretKeyRef:
-                  name: postgresql-starcoin-yu
+                  name: postgresql
                   key: password
             - name: MAIN_DS_URL
-              value: "jdbc:postgresql://database-1.c0bz9kehdvnb.ap-northeast-1.rds.amazonaws.com/starcoin?currentSchema=main"
+              value: "jdbc:postgresql://postgres-service.default.svc.cluster.local/starcoin?currentSchema=main"
